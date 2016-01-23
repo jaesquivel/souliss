@@ -2,6 +2,8 @@ language: c
 branches:
   only:
     - friariello
+    - new_sleep
+
 before_install:
   - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16
   - sleep 3
@@ -58,6 +60,10 @@ script:
   - arduino --board esp8266:esp8266:generic
   - arduino --verify --board esp8266:esp8266:generic $PWD/examples/Olimex/e04_Olimex_ESP8266-EVB/e04_Olimex_ESP8266-EVB.ino
 #  - arduino --verify --board esp8266:esp8266:generic $PWD/examples/Olimex/e05_Olimex_ESP8266-EVB_MOD-MPU6050/e05_Olimex_ESP8266-EVB_MOD-MPU6050.ino
+
+  - arduino --board arduino:avr:uno
+  - arduino --verify --board arduino:avr:uno $PWD/examples/sleeping/e01_sleeping_gateway/e01_sleeping_gateway.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/sleeping/e01_sleeping_peer/e01_sleeping_peer.ino
 
   - arduino --board arduino:avr:uno
   - arduino --verify --board arduino:avr:uno $PWD/examples/usart/e01_GarageDoor_n1/e01_GarageDoor_n1.ino
