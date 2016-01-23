@@ -74,14 +74,37 @@ Match between interrupts and associated pins
 	#error "The selected microcontrollers isn't actually supported for sleep"
 #endif
 
-bool backfromSleep = false;
-uint8_t sleepmode = 0, wakeupscycles = 0;
-uint16_t sleepcounter = 0;
+bool backfromSleep = true;
+uint8_t sleepmode = 0, wakeupscycles = wakeupCycles;
+uint16_t sleepcounter = wakeupTime;
 
-void wakeUpNow()        // here the interrupt is handled after wakeup
+// Interrupt routing executed once back from a interrupt pin change
+void wakeUpNow()
 {
+	sleep_disable();
+	detachInterrupt(wakePinINT);
 	backfromSleep = true;
 	wakeupscycles = wakeupCycles;
+}
+
+// Interrupt routine executed once back from a timed sleep
+ISR(WDT_vect)
+{
+	// Disable the timer
+	sleep_timer_disable();
+
+	// if the timer is expired wakeup
+	if(!sleepcounter)	
+	{
+		backfromSleep = true;
+		sleepcounter  = wakeupTime;
+		wakeupscycles = wakeupCycles;
+	}
+	else 
+	{
+		// is not yet time to wakeup
+		sleepcounter--;
+	}
 }
 
 /**************************************************************************/
@@ -155,9 +178,6 @@ void sleepNow()         // here we put the arduino to sleep
 	// the device will start back from this point once the interrupt on pin 2
 	// has been fired, so disable sleep and go in normal mode
 	sleep_disable();
-
-	if(sleepmode & SLEEPMODE_INPUT)	detachInterrupt(wakePinINT);    	
-	if(sleepmode & SLEEPMODE_TIMER)	sleep_timer_disable();
 	sei();
 	
 #	if(SLEEP_WAKEUPDELAY)
@@ -172,24 +192,6 @@ void sleepNow()         // here we put the arduino to sleep
 #	endif
 }
 
-ISR(WDT_vect)
-{
-	// if the timer is expired wakeup
-	if(!sleepcounter)	
-	{
-		backfromSleep = true;
-		sleepcounter  = wakeupTime;
-		wakeupscycles = wakeupCycles;
-	}
-	else 
-	{
-		// is not yet time to wakeup
-		sleepcounter--;
-		sleepNow();
-	}
-}
-
-
 bool wasSleeping()
 {
 	return backfromSleep;
@@ -197,7 +199,7 @@ bool wasSleeping()
 
 bool isTimeToSleep()
 {
-	if(wakeupscycles)
+	if(backfromSleep && wakeupscycles)
 	{
 		wakeupscycles--;
 		return 0;
@@ -224,13 +226,7 @@ void sleepInit(uint8_t mode=SLEEPMODE_INPUT)
 		// Setup the watchdog timer at 8 seconds
 		set_sleep_timer();
 	}
-	
-	// This is the first run, trigger this flag to execute a first run
-	// at first boot
-	backfromSleep = true;
 }
-
-
 
 #endif
 
