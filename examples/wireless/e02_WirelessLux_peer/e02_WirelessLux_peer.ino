@@ -44,7 +44,7 @@ void setup()
     Initialize();
     
     // Set network parameters
-    Souliss_SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
+    SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
 
     // Set the typical logic to handle the lights
     Set_T11(LIGHT1_NODE1);

@@ -53,9 +53,9 @@ void setup()
     Initialize();
     
     // Set network parameters
-    Souliss_SetIPAddress(ip_address, subnet_mask, ip_gateway);
+    SetIPAddress(ip_address, subnet_mask, ip_gateway);
     SetAsGateway(myvNet_address);   
-    Souliss_SetAddress(Gateway_address, myvNet_subnet, myvNet_supern);      // Address on the wireless interface                                    // Set this node as gateway for SoulissApp  
+    SetAddress(Gateway_address, myvNet_subnet, myvNet_supern);      // Address on the wireless interface                                    // Set this node as gateway for SoulissApp  
     
     // This node as gateway will get data from the Peer
     SetAsPeerNode(Peer_address, 1); 

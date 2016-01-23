@@ -46,7 +46,7 @@ void setup()
     Initialize();
 
     // Setup the network configuration      
-    Souliss_SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
+    SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
     
     // The logic that handles windows and curtains is T22, you can as alternative use Set_Windows()
     Set_T22(CURTAIN_NODE2);

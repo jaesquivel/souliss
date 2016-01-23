@@ -43,7 +43,7 @@ void setup()
     Initialize();
     
     // Setup the network configuration      
-    Souliss_SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
+    SetAddress(Peer_address, myvNet_subnet, myvNet_supern);                 // Address on the wireless interface    
     
     // Set the typical logic to handle the garage door and light
     Set_T22 (GARAGEDOOR_NODE2);

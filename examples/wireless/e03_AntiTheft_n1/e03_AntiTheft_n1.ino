@@ -48,7 +48,7 @@ void setup()
     Initialize();
 
     // Setup the network configuration      
-    Souliss_SetAddress(Peer_address_n1, myvNet_subnet, myvNet_supern);                  // Address on the wireless interface    
+    SetAddress(Peer_address_n1, myvNet_subnet, myvNet_supern);                  // Address on the wireless interface    
 
     // Setup the anti-theft
     Set_T42(ANTITHEFT);

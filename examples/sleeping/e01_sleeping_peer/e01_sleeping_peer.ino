@@ -19,6 +19,9 @@
       
 ***************************************************************************/
 
+// Let the IDE point to the Souliss framework
+#include "SoulissFramework.h"
+
 // Configure the framework
 #include "bconf/StandardArduino.h"          // Use a standard Arduino
 #include "conf/nRF24L01.h"
@@ -27,6 +30,9 @@
 
 // Include framework code and libraries
 #include <SPI.h>
+#include <EEPROM.h>
+
+/*** All configuration includes should be above this line ***/ 
 #include "Souliss.h"
 
 #define BATT_LEVEL      0            
@@ -46,14 +52,14 @@ void setup()
     GetAddress();
 
     /*****
-		You can select three sleeping modes:
-			SLEEPMODE_INPUT - Wakes on external change of a input pin
-			SLEEPMODE_TIMER - Wakes periodically (see below note)
-			SLEEPMODE_COMBO - Wakes with both previous conditions
+        You can select three sleeping modes:
+            SLEEPMODE_INPUT - Wakes on external change of a input pin
+            SLEEPMODE_TIMER - Wakes periodically (see below note)
+            SLEEPMODE_COMBO - Wakes with both previous conditions
 
         The default sleep time is about 30 minutes and the default pin where the
-		external change of a pin is recognized is 2 for Atmega32P (Arduino UNO). 
-		You can customize it from base/Sleeping.h file
+        external change of a pin is recognized is 2 for Atmega32P (Arduino UNO). 
+        You can customize it from base/Sleeping.h file
     *****/
 
     sleepInit(SLEEPMODE_TIMER);
@@ -85,23 +91,23 @@ void loop()
     // If the node wake-ups then this statement is executed
     if(wasSleeping() || StayUp())
     {          
-			/**************
-			Add below the code required to wakeup custom devices connected, like:
-				- Sensor,
-				- Voltage regulator,
-				- ...
-			**************/
+            /**************
+            Add below the code required to wakeup custom devices connected, like:
+                - Sensor,
+                - Voltage regulator,
+                - ...
+            **************/
 
-			// We want send a frame once back from sleep, so we set the trigger and this
-			// will force the node to send its state to the gateway
-			if(!StayUp()) SetTrigger(); 
+            // We want send a frame once back from sleep, so we set the trigger and this
+            // will force the node to send its state to the gateway
+            if(!StayUp()) SetTrigger(); 
 
-			// Estimate the battery charge, assuming that you are powering with 2 AA
-			// alkaline
-			float batterycharge = batteryCharge();
-			
-			ImportAnalog(BATT_LEVEL, &batterycharge);
-			Read_AnalogIn(BATT_LEVEL);
+            // Estimate the battery charge, assuming that you are powering with 2 AA
+            // alkaline
+            float batterycharge = batteryCharge();
+            
+            ImportAnalog(BATT_LEVEL, &batterycharge);
+            Read_AnalogIn(BATT_LEVEL);
 
             // Here we process the communication
             ProcessCommunication();
@@ -110,23 +116,23 @@ void loop()
 
 float batteryCharge()
 {
-	// Read the input voltage at microcontroller
-	long vcc = readVcc();
-	float vcc_f = (float) vcc;
+    // Read the input voltage at microcontroller
+    long vcc = readVcc();
+    float vcc_f = (float) vcc;
                 
-	// Estimate the battery charge, assuming that you are powering with 2 AA
-	// alkaline
-	float mbatt = 3*(vcc_f/1000) - 7.5;
-	float batterycharge = 0.66 + 0.022*mbatt + (float)(0.0074*pow(mbatt,3)) + (float)(0.0088*pow(mbatt,9));
+    // Estimate the battery charge, assuming that you are powering with 2 AA
+    // alkaline
+    float mbatt = 3*(vcc_f/1000) - 7.5;
+    float batterycharge = 0.66 + 0.022*mbatt + (float)(0.0074*pow(mbatt,3)) + (float)(0.0088*pow(mbatt,9));
                 
-	// Cut if out of range
-	if(batterycharge > 1) batterycharge = 1;
-	if(batterycharge < 0) batterycharge = 0;
+    // Cut if out of range
+    if(batterycharge > 1) batterycharge = 1;
+    if(batterycharge < 0) batterycharge = 0;
                 
-	// Get it in percentage
-	batterycharge*=100;
+    // Get it in percentage
+    batterycharge*=100;
 
-	return batterycharge;
+    return batterycharge;
 }
 
 long readVcc() {
