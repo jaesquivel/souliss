@@ -132,6 +132,9 @@ U8 Souliss_GetTypicals(U8 *memory_map)
 		// Pointer to the node address
 		U16 m_addr = C8TO16(memory_map+MaCaco_ADDRESSES_s+2*roundrob_1);
 		
+		// If is a battery node, low the number of retries
+		if(MaCaco_get_battery(roundrob_1) && (timeout > TIMEOUT_ONESHOT)) timeout = TIMEOUT_ONESHOT;
+
 		// Update the timeout
 		if(timeout)	timeout--;
 		else if(timeout==TIMEOUT_EXPIRE)

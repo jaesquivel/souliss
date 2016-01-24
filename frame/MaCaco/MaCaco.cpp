@@ -1436,6 +1436,16 @@ void MaCaco_subscribe_battery(U8 subscr_chnl)
 {
 	subscr_battery[subscr_chnl] = true;
 }
+
+/**************************************************************************/
+/*!
+    Flag that the subscribed node is battery operated
+*/
+/**************************************************************************/
+bool MaCaco_get_battery(U8 subscr_chnl)
+{
+	return subscr_battery[subscr_chnl];
+}
 #endif
 
 /**************************************************************************/

@@ -47,6 +47,7 @@ void MaCaco_init(U8* memory_map);
 U8 MaCaco_subscribe(U16 addr, U8 *memory_map, U16 putin, U8 startoffset, U8 numberof, U8 subscr_chnl);
 void MaCaco_subscribe_reset();
 void MaCaco_subscribe_battery(U8 subscr_chnl);
+bool MaCaco_get_battery(U8 subscr_chnl);
 void MaCaco_subscribe_record(U16 addr, U8 funcode, U16 putin, U8 startoffset, U8 numberof);
 bool MaCaco_subscribe_is_init();
 U8 MaCaco_subAnswer(U8* memory_map, U8* data_chg);
