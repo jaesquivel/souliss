@@ -46,8 +46,13 @@ void setup()
     Souliss_SetIPAddress(ip_address, subnet_mask, ip_gateway);                          // Address on the Ethernet interface
     SetAsGateway(myvNet_address);                                                       // Set this node as gateway for SoulissApp  
 
-    // This node will serve all the others in the network providing an address
-    SetAddressingServer();
+    // Set networking parameters for the radio
+    SetAddress(0x6501, 0xFF00, 0x0000);
+
+	// List of peer nodes
+	SetAsBatteryNode(0x6502, 1);
+	SetAsBatteryNode(0x6503, 2);
+
 }
 
 void loop()

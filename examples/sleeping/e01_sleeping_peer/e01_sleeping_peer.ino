@@ -35,7 +35,10 @@
 /*** All configuration includes should be above this line ***/ 
 #include "Souliss.h"
 
-#define BATT_LEVEL      0            
+// Slot for logic on this node (typical)
+#define BATT_LEVEL      0  
+#define REED_SWITCH		2
+          
 #define STAYUP_PIN      3                   // Keeps the node asleep
 #define StayUp()        digitalRead(STAYUP_PIN)
 
@@ -45,11 +48,11 @@ void setup()
 
     // Set an analog value to measure the battery voltage
     Set_AnalogIn(BATT_LEVEL);
+	Set_T13(REED_SWITCH);
 
-    // This board request an address to the gateway at runtime, no need
-    // to configure any parameter here.
-    SetDynamicAddressing();
-    GetAddress();
+    // Set networking parameters for the radio
+    SetAddress(0x6502, 0xFF00, 0x6501);
+    WaitSubscription();
 
     /*****
         You can select three sleeping modes:
@@ -57,12 +60,19 @@ void setup()
             SLEEPMODE_TIMER - Wakes periodically (see below note)
             SLEEPMODE_COMBO - Wakes with both previous conditions
 
-        The default sleep time is about 30 minutes and the default pin where the
-        external change of a pin is recognized is 2 for Atmega32P (Arduino UNO). 
-        You can customize it from base/Sleeping.h file
+			SLEEPMODE_INPUT
+			The node wakes-up on rising edge of interrupt 0 (pin 2 for Atmega328P,
+			Arduino UNO).
+
+			SLEEPMODE_TIMER
+			The node wakes-up every 30 minutes.
+ 
+			You can customize it from base/Sleeping.h file
     *****/
 
-    sleepInit(SLEEPMODE_TIMER);
+	// This setup the wake-up of the node, you don't need to specify the interrupt 0
+	// pin as input, will be done automatically.
+    sleepInit(SLEEPMODE_COMBO);
     
     // Use an external input to force the node in asleep, keep it activated till you
     // configuration (node address and typicals) are completed and you are able to
@@ -101,6 +111,10 @@ void loop()
             // We want send a frame once back from sleep, so we set the trigger and this
             // will force the node to send its state to the gateway
             if(!StayUp()) SetTrigger(); 
+
+			// Read the state of the reed switch
+			DigIn(wakePin, Souliss_T1n_OnCmd, REED_SWITCH);
+			Logic_T13(REED_SWITCH);
 
             // Estimate the battery charge, assuming that you are powering with 2 AA
             // alkaline
