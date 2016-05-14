@@ -34,7 +34,7 @@
 #define	BOARD_MODEL_INSKETCH
 #define	COMMS_MODEL_INSKETCH
 
-#define	BOARD_MODEL					F		
+#define	BOARD_MODEL					0xF		
 #define	COMMS_MODEL					7
 #define ETH_W5100  					0
 #define ETH_W5200  					0

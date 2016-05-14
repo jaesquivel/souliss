@@ -42,7 +42,7 @@
 #define WIFI_MRF24					0
 #define WIFI_ESP8266				1	
 #define	COMMS_MODEL					7
-#define	BOARD_MODEL					F
+#define	BOARD_MODEL					0xF
 
 // The ESP8266 works always with two media, it use Media 3 to
 // remove dependence between vNet address and IP address from DHCP

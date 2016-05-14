@@ -62,7 +62,7 @@ void MCP23S17M_Begin()
 /**************************************************************************/
 void MCP23S17M_mode(uint8_t PortNum, uint8_t mode)
 {
-	uint8_t Tmp = EXPReadREG(IODIR);
+	uint8_t Tmp = MCP23S17M_readregister(IODIR);
 	if (INPUT == mode)Tmp |= (1 << PortNum); else Tmp &= ~(1 << PortNum);
 	MCP23S17M_writeregister(IODIR, Tmp);
 }
@@ -74,7 +74,7 @@ void MCP23S17M_mode(uint8_t PortNum, uint8_t mode)
 /**************************************************************************/
 void MCP23S17M_write(uint8_t PortNum, uint8_t state)
 {
-	uint8_t Tmp = EXPReadREG(OLAT);
+	uint8_t Tmp = MCP23S17M_readregister(OLAT);
 	if (HIGH == state)Tmp |= (1 << PortNum); else Tmp &= ~(1 << PortNum);
 	MCP23S17M_writeregister(OLAT, Tmp);
 }

@@ -71,7 +71,7 @@
 // Set the Reset and PWDN pins in DINo version 2
 #define	InitDINo()			MCP23S17M_Begin();					\
 							SetInput1(); 						\
-							SetInput2());						\
+							SetInput2();						\
 							SetInput3();						\
 							SetInput4();						\
 							SetRelay1();						\
@@ -81,7 +81,7 @@
 							delay(1000)	
 
 // Reduce power consumption switching off the ESP8266 WiFi
-#define	PowerDownWiFi()		WiFi.mode(WIFI_OFF);
+#define	PowerDownWiFi()		WiFi.mode(WIFI_OFF)
 
 void MCP23S17M_Begin();
 void MCP23S17M_mode(uint8_t PortNum, uint8_t mode);
@@ -89,5 +89,22 @@ void MCP23S17M_write(uint8_t PortNum, uint8_t state);
 bool MCP23S17M_read(uint8_t PortNum);
 uint8_t MCP23S17M_readregister(uint8_t addr);
 void MCP23S17M_writeregister(uint8_t addr, uint8_t data);
+
+
+// Settings for MCP23S17M
+#define READ_CMD  			0x41
+#define WRITE_CMD 			0x40
+#define IODIR   			0x00
+#define IPOL    			0x01
+#define GPINTEN 			0x02
+#define DEFVAL  			0x03
+#define INTCON  			0x04
+#define IOCON   			0x05
+#define GPPU    			0x06
+#define INTF    			0x07
+#define INTCAP  			0x08
+#define GPIO    			0x09
+#define OLAT    			0x0A
+
 		
 #endif
