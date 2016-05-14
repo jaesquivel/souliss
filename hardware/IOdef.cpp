@@ -52,3 +52,8 @@
 #if(BOARD_MODEL == 0x0B)						
 #	include "hardware/Authometion/LYT8266.cpp"
 #endif
+
+// Include drivers for KMP Electronics DINo WiFi
+#if(BOARD_MODEL == 0x0F)						
+#	include "hardware/KMPElectronics/ProDINo_WiFi.cpp"
+#endif

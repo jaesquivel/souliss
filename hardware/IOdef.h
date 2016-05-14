@@ -81,6 +81,11 @@
 #	include "hardware/SGTronic/ControllinoMaxi.h"
 #endif
 
+// Include drivers for KMP Electronics DINo WiFi
+#if(BOARD_MODEL == 0x0F)						
+#	include "hardware/KMPElectronics/ProDINo_WiFi.h"
+#endif
+
 // Include defines for Industrino INDIO Board
 #if(IOBOARD_MODEL == 0x07)						
 #	include "hardware/Industruino/INDIO.h"

@@ -7,6 +7,7 @@ Release note for revision v7.2,   on dd/mm/yyyy
 	LASTIN. Debug messages can now be printed on any interface and not only USART with a
 	simple inSketch definition.
 
+		- Support for DINo WiFi
 		- Revamped LASTIN for simpler use with Cloud services
         - Debug object #define is centralized
 		- Introduction of Pulsed Output functions

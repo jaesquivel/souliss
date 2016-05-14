@@ -1,5 +1,5 @@
 /**************************************************************************
-	Souliss Support for Authometion LYT88
+	Souliss Support for Authometion LYT8266
     Copyright (C) 2014  Veseo
 	
 ***************************************************************************/
