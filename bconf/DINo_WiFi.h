@@ -36,7 +36,7 @@
 
 // Refer to ethUsrCfg.h, vNetCfg.h and hwBoards.h
 #define ETH_W5100  					0
-#define ETH_W5200  					1
+#define ETH_W5200  					0
 #define ETH_W5500					0
 #define ETH_ENC28J60  				0
 #define WIFI_MRF24					0
@@ -51,8 +51,8 @@
 
 // Redefine the local IO methods because this board use the MCP23S17M
 #define	LOCAL_IO
-#define	dRead	digitalRead
-#define	dWrite	digitalWrite
+#define	dRead	MCP23S17M_read
+#define	dWrite	MCP23S17M_write
 #define	aRead	analogRead
 #define	aWrite	analogWrite
 

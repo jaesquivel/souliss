@@ -52,7 +52,7 @@
 #		define MAXINPIN		29		// Max number of input pins
 #	endif
 #elif(MCU_TYPE == 0x02)	// Expressif ESP8266
-#	define MAXINPIN		29		// Max number of input pins
+#	define MAXINPIN		29			// Max number of input pins
 #endif
 
 void Souliss_SetAddress(U16 addr, U16 subnetmask, U16 mysupernode);

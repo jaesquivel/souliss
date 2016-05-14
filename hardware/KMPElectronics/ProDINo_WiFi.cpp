@@ -33,7 +33,7 @@
 
 #include "Typicals.h"
 #include "GetConfig.h"
-#include "ProDINo.h"
+#include "ProDINo_WiFi.h"
 
 
 uint8_t  TX_Data[16];

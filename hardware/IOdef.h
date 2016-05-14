@@ -82,7 +82,7 @@
 #endif
 
 // Include drivers for KMP Electronics DINo WiFi
-#if(BOARD_MODEL == 0x0F)						
+#if(BOARD_MODEL == 0x0F)					
 #	include "hardware/KMPElectronics/ProDINo_WiFi.h"
 #endif
 
