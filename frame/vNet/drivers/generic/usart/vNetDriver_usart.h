@@ -62,7 +62,7 @@
 #define	USART_BUSBUSY			0x03
 #define	USART_BUSRECV			0x05
 #define	USART_BUSFREE			0x00
-#define	USART_STARTDELAY		0x03				// Delay in second before node startup
+#define	USART_STARTDELAY		300				// Delay in second before node startup
 
 void vNet_Init_M5();
 void vNet_SetAddress_M5(uint16_t addr);

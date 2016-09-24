@@ -43,7 +43,7 @@ uint16_t myaddress=0, caindex=0, in_crc=0;
 #define setBusFree()	busstate=USART_BUSFREE
 #define waitBusFree()	delay(caindex*USART_TOKEN_TIME)
 #define waitSend()		delay(caindex*USART_MAX_TIME)
-#define	startupDelay()	delay(caindex*USART_STARTDELAY*1000)
+#define	startupDelay()	delay(caindex*USART_STARTDELAY)
 
 // The name of the class that refers to the USART, change it accordingly to the used device
 #ifndef USARTDRIVER_INSKETCH
